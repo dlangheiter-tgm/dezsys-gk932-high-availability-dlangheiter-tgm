@@ -19,11 +19,12 @@ class Server:
             p.start()
 
     def client(self, client):
+        print("Got client")
         client.send(("Connected to server " + self.name + "\n").encode(),)
         while True:
             data = client.recv(1024)
             if not data: break
-            send = "ECHO: " + data.decode('utf-8')
+            send = "ECHO " + self.name + ": " + data.decode('utf-8')
             client.send(send.encode())
 
 
