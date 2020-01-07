@@ -70,6 +70,7 @@ class BalanceServer:
         return self.servers[self.current_server]
 
     def connect_client(self, csocket, server):
+        print("Client got connected to", server)
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.connect((server.host, server.port))
         cs = Process(target=BalanceServer.client_to_server, args=(csocket,server_socket))
