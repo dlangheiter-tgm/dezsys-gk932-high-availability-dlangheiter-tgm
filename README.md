@@ -50,8 +50,8 @@ Usage:
 python server.py <name> <port>
 ```
 Dies startet einen Server auf dem angegebenen Port und erlaubt unendlich verbindungen.
-Bei einer Verbindung schickt der Server die Nachricht `Connected to server <name>`.
-Bei weiteren nachrichten schikt der Server die Nachricht `ECHO <name>: <msg>`.
+Bei einer Verbindung schickt der Server die Nachricht `Connected to server <name>`.  
+Bei weiteren nachrichten schickt der Server die Nachricht `ECHO <name>: <msg>`.
 
 ### Fragen
 
