@@ -1,0 +1,14 @@
+port: 1880
+
+balancers:
+  ser1:
+    host: localhost
+    port: 1881
+  ser2:
+    host: localhost
+    port: 1882
+    weight: 2
+  ser3:
+    host: localhost
+    port: 1883
+    weight: 4
