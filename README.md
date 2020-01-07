@@ -1,62 +1,54 @@
-# GK9.3.2 Middleware Engineering "High Availability" - Taskdescription
-## Einführung
-Als Lastverteilung (englisch Load Balancing) bezeichnet man in der Informatik der Verteilung von umfangreiche Berechnungen oder große Mengen von Anfragen auf mehrere parallel arbeitende Systeme. Dies kann sehr unterschiedliche Ausprägungen haben. Eine einfache Lastverteilung findet zum Beispiel auf Rechnern mit mehreren Prozessoren statt. Jeder Prozess kann auf einem eigenen Prozessor ausgeführt werden. Man unterscheidet eine Reihe von Algorithmen, genannt Load Balancing Methoden, um diese Verteilung durchzuführen.
+# GK9.3.2 Middleware Engineering "High Availability"
+David Langheiter  
+[Task](./TASK.md)
 
+### Fragen
 
-## Ziele
-Diese Übung soll helfen die Funktionsweise eines Load Balancers kennenzulernen und anwenden zu koennen. Dabei sollen die SchülerInnen die verschiedenen Methoden kennenlernen und anhand eines Beispiels umgesetzt werden.
+##### Verlgeichen Sie die verwendeten Load Balancing Methoden und stellen Sie diese gegenüber.
+Hab nur einer verwendet.
 
+Weighted Round-Robin: Besucht alle Services so wie round-robin. Kann aber z.B. bestimmte öfter
+besuchen. Je nach gewichtung.
 
-## Voraussetzungen
-* Grundlagen zu Load Balancing
-* Java/Python Programmierkenntnisse
+Least Connection: Es werden die Services bevorzugt welche die wenigsten Vrbindungen haben.
 
+##### Was kann als Gewichtung bei Weighted Round Robin verwendet werden?
+* Auslastung
+* Künstlicher aufteilung (weight)
+* Verfügbarkeit
+* Offenen verbindungen
 
-## Aufgabenstellung
-Es soll ein Load Balancer mit mindestens 2 unterschiedlichen Load-Balancing Methoden implementiert werden. Eine Kombination von mehreren Methoden ist möglich. Die Berechnung bzw. das Service ist frei wählbar!
+##### Warum stellt die "Hochverfügbarkeit" von IT Systemen in der heutigen Zeit eine sehr wichtige Eigenschaft dar?
+Weil es wichtig ist dass informationen immer und in einer angemessenen Zeit verfügbar sind.
+Um z.B. Bankgeschäfte zu tätigen. Und weil die Menschen davon ausgehen das es immer Funktionert.
 
-Folgende Load Balancing Methoden stehen zur Auswahl:
+##### Welche anderen Massnahmen neben einer Lastverteilung müssen getroffen werden, um die "Hochverfügbarkeit" sicher zu stellen?
+* Überwachung
+* Ausfallsicherheit
+* Redundanz
+* vorbeugende Wartungen
 
-+ Weighted Round-Round
-+ Least Connection
-+ Weighted Least Connection
-+ Agent Based Adaptive Balancing / Server Probes
+##### Was versteht man unter "Session Persistenz" und welche Schwierigkeiten ergeben sich damit?
+Das die selbe Session immer zum selben Server geleitet wird, damit die Server nicht immer
+nachschauen müssen ob die Session noch aktiv und welcher Nutzer hinter der Session liegt.
+Das Problem dabei ist wenn ein Server zu viele Sessions zugewisen bekommt die langlebiger sind als
+normal und damit villeicht überlastet wird.
 
-Es sollen die einzelnen Server-Instanzen in folgenden Punkten belastet werden können:
+##### Nennen Sie jeweils ein Beispiel, wo Session Persistenz notwendig bzw. nicht notwendig ist.
+Notwending: wenn man Formulare ausfüllt und der Nutzer wichtig ist.
+Nicht notwendig: Nicht Benutzer spezifische Daten. Docs, Info seiten, ...
 
-+ Memory (RAM)
-+ CPU Cycles
+##### Welcher Unterschied besteht zwischen einer "server-side" bzw "client-side" Lastverteilungslösung?
+Server-Side:
+Der Client verbindet sich mit einem Server und dieser leitet ihn über sich zu einem anderen ohne das dies der Client mitbekommt.
 
-Bedenken Sie dabei, dass die einzelnen Load Balancing Methoden unterschiedlich auf diese Auslastung reagieren werden. Dokumentieren Sie dabei aufkommenden Probleme ausführlich.
+Client-Side:
+Der Client kümmert sich um die Auswahl des Servers. Mit z.B. Pings um den am Schnellsten erreichbarsten Server zu finden.
 
+##### Was versteht man unter dem "Mega-Proxy-Problem"?
+Dies tritt bei Load Balancing mit hash Methoden auf. Das heißt dass wenn viel Traffic von einer bestimten Addressen Range
+kommt wird diese immer dem selben Server zugewiesen und damit wird dieser überlastet.
 
-## Abnahme/Tests
-Für die Abnahme wird empfohlen, dass jeder Server eine Ausgabe mit entsprechenden Informationen ausgibt, damit die Verteilung der Anfragen demonstriert werden kann. Sie sollen auch eine sinnvolle Darstellung wählen, um die Resultate der Belastungstests zu dokumentieren.
-
-
-## Fragestellung für die Dokumentation
-Verlgeichen Sie die verwendeten Load Balancing Methoden und stellen Sie diese gegenüber.
-
-+ Was kann als Gewichtung bei Weighted Round Robin verwendet werden?
-+ Warum stellt die "Hochverfügbarkeit" von IT Systemen in der heutigen Zeit eine sehr wichtige Eigenschaft dar?
-+ Welche anderen Massnahmen neben einer Lastverteilung müssen getroffen werden, um die "Hochverfügbarkeit" sicher zu stellen?
-+ Was versteht man unter "Session Persistenz" und welche Schwierigkeiten ergeben sich damit?
-+ Nennen Sie jeweils ein Beispiel, wo Session Persistenz notwendig bzw. nicht notwendig ist.
-+ Welcher Unterschied besteht zwischen einer "server-side" bzw "client-side" Lastverteilungslösung?
-+ Was versteht man unter dem "Mega-Proxy-Problem"?
-
-
-## Bewertung
-﻿Gruppengrösse: 1 Person
-### Anforderungen "überwiegend erfüllt"
-+ Dokumentation und Beschreibung der angewendeten Load Balancing Methode
-+ Implementieren & dokumentieren einer Load Balancing Methode
-### Anforderungen "zur Gänze erfüllt"
-+ Implementieren & dokumentieren einer weiteren Load Balancing Methode
-+ Gegenüberstellung der angewendeten Load Balancing Methoden
-+ Durchführen & dokumentieren der Belastungstests (RAM/CPU)
-
-
-## Quellen
-* [Comparing Load Balancing Algorithms](https://www.jscape.com/blog/load-balancing-algorithms)
-* [Java RMI Tutorial - PI Calculation](https://docs.oracle.com/javase/tutorial/rmi/overview.html)
+### Sources
+[Weighted-Round-Robin](https://www.researchgate.net/figure/Round-robin-scheduling-strategy-Weighted-Round-Robin-Load-Balancing-Weighted_fig3_274007923)  
+[Session Persistence](https://www.varnish-software.com/glossary/what-is-session-persistence/)
