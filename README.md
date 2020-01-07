@@ -2,6 +2,57 @@
 David Langheiter  
 [Task](./TASK.md)
 
+### Umsetzung
+#### Balancer
+Liest die `config.yml` und parst sie. Warted danach auf Verdingunen und leitet sie auf den nächsten Server weiter.
+
+Dies tut es mit 2 Threads. Einen für die Client -> Server kommunikation und einen für die Server -> Client
+kommunikation.
+```python
+def connect_client(self, csocket, server):
+    print("Client got connected to", server)
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.connect((server.host, server.port))
+    cs = Process(target=BalanceServer.client_to_server, args=(csocket,server_socket))
+    sc = Process(target=BalanceServer.server_to_client, args=(csocket,server_socket))
+    cs.start()
+    sc.start()
+```
+
+### Verweundung und Erklärung
+Meine Umsetzung besteht aus zwei Teilen.
+#### Balancer
+Dieser ist der Load-Balancer.
+Mann kann diesen mit der `config.yml` configurieren.
+Example config:
+```yaml
+port: 1880
+
+balancers:
+  ser2:
+    host: localhost
+    port: 1882
+    weight: 2
+```
+Beschreibung:
+* `port` ist der Port auf dem der Server horcht
+* `balancers` Map an Servern. Wobei der key nur ein name ist
+    * `host` Host dieses Servers
+    * `port` Port dieses Servers
+    * `weight` die Gewichtung dieses Servers. default: `1`
+
+Der Server geht einfach die Liste nach entlang und schickt den Servern `weight` viele Anfragen
+hintereinander und geht dann weiter. Wenn er beim letzten angekommen ist spring er wieder zum ersten.
+
+#### Server
+Usage:
+```shell script
+python server.py <name> <port>
+```
+Dies startet einen Server auf dem angegebenen Port und erlaubt unendlich verbindungen.
+Bei einer Verbindung schickt der Server die Nachricht `Connected to server <name>`.
+Bei weiteren nachrichten schikt der Server die Nachricht `ECHO <name>: <msg>`.
+
 ### Fragen
 
 ##### Verlgeichen Sie die verwendeten Load Balancing Methoden und stellen Sie diese gegenüber.
